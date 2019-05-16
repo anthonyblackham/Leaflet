@@ -32,7 +32,11 @@
         //load GeoJSON from an external file
         $.getJSON("data/trainstops.geojson", function(data) {
             // set trainstops to GeoJSON, add GeoJSON layer to the map once the file is loaded
-            trainstops = L.geoJson(data,).addTo(map);
+            trainstops = L.geoJson(data, {
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(feature.properties.Station);
+                }
+            }).addTo(map);
         });
 
     </script>
